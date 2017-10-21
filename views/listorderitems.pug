@@ -1,0 +1,74 @@
+extends layout
+
+block content
+	h1= 'Order Items'
+	
+	<input type="button" name="button" value="Ship Orders"/> 
+	div#successmessage
+	div(id='otherpage') 
+		a(href='/listshippeditems') return order items page
+
+
+	form(method='POST' action='/shiporders')#shipform
+		div
+			table
+				thead
+					tr
+						th STOREENT_ID
+						th ORDERS_ID
+						th ORDERS_STATUS
+						th ORDERITEMS_ID
+						th SKU_PARTNUMBER
+						th PARENT_PARTNUMBER
+						th SHIPPED_QUANTITY
+						th CANCELLED_QUANTITY
+						th ORIGINAL_QUANTITY		
+						th QUANTITY_TO_SHIP
+						th QUANTITY_TO_CANCEL
+						th DROP_SHIP
+				tbody
+					each result in orderitems
+						tr&attributes({'id':result.ORDERS_ID})
+
+							td#storeid #{result.STOREENT_ID}
+						
+							td#ordersid #{result.ORDERS_ID}
+						
+							td#ordersstatus #{result.ORDERS_STATUS}
+						
+							td#orderitemsid #{result.ORDERITEMS_ID} 
+																		
+							td#skupartnum #{result.SKU_PARTNUMBER} 
+						
+							td#parentpartnum #{result.PARENT_PARTNUMBER}
+
+							- var id3= "shippedq_" + result.ORDERS_ID;
+							th&attributes({'id':id3}) #{result.SHIPPED_QUANTITY}
+
+							- var id4= "cancelledq_" + result.ORDERS_ID;
+							th&attributes({'id':id4}) #{result.CANCELLED_QUANTITY}
+						
+							- var id2= "originalq_" + result.ORDERS_ID;
+							td&attributes({'id':id2}) #{result.QUANTITY}
+						
+							td#quantity 
+								- var id= "quantity_" + result.ORDERS_ID;
+								<select id= #{id}>
+									- var n = -1;
+									while n < (result.QUANTITY - (result.SHIPPED_QUANTITY+result.CANCELLED_QUANTITY))
+										n=n++
+										option= n
+								</select>
+
+							td#xquantity
+								- var id= "xquantity_" + result.ORDERS_ID;
+								<select id= #{id}>
+									- var n = -1;
+									while n < (result.QUANTITY - (result.SHIPPED_QUANTITY+result.CANCELLED_QUANTITY))
+										n=n++
+										option= n
+								</select>
+
+							td#dropship
+								<input type="checkbox" id="dscheck"/>
+			

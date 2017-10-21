@@ -1,0 +1,57 @@
+extends layout
+
+block content
+	h1= 'Return Order Items'
+	
+	<input type="button" name="returnItems" value="Return Items"/> 
+	div#successmessage
+	div(id='otherpage') 
+		a(href='/listorderitems') ship order items page
+
+
+	form(method='POST' action='/returnItems')#returnForm
+		div
+			table
+				thead
+					tr
+						th STOREENT_ID
+						th ORDERS_ID
+						th ORDERS_STATUS
+						th ORDERITEMS_ID
+						th SKU_PARTNUMBER
+						th PARENT_PARTNUMBER
+						th ORIGINAL_QUANTITY
+						th SHIPPED_QUANTITY
+						th RETURNED_QUANTITY
+						th QUANTITY_TO_RETURN
+				tbody
+					each result in shipData
+						tr&attributes({'id':result.ORDERS_ID})
+
+							td#storeid #{result.STOREENT_ID}
+						
+							td#ordersid #{result.ORDERS_ID}
+						
+							td#ordersstatus #{result.ORDERS_STATUS}
+						
+							td#orderitemsid #{result.ORDERITEMS_ID} 
+																		
+							td#skupartnum #{result.SKU_PARTNUMBER} 
+						
+							td#parentpartnum #{result.PARENT_PARTNUMBER}
+
+							td#originalquantity #{result.QUANTITY}
+
+							th#shippedquantity #{result.SHIPPED_QUANTITY}
+
+							td#returnedq #{result.RETURNED_QUANTITY}
+
+							td#quantity 
+								- var id= "quantity_" + result.ORDERS_ID;
+								<select id= #{id}>
+									- var n = -1;
+									while n < (result.SHIPPED_QUANTITY - result.RETURNED_QUANTITY)
+										n=n++
+										option= n
+								</select>
+			
