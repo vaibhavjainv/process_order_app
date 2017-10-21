@@ -22,10 +22,10 @@ router.get('/listorderitems', function(req, res, next) {
 					if (err) console.log(err);
 					else{
 						for (var i = data.length - 1; i >= 0; i--) {
-   			 				//console.log(shipData[i].ORDERITEMS_ID);
+   			 				//console.log(cancelData);
 							data[i].CANCELLED_QUANTITY = 0;
    			 				for (var j = cancelData.length - 1; j >= 0; j--) {
-   			 					if(cancelData[j].ORDERITEMS_ID == cancelData[i].ORDERITEMS_ID){
+   			 					if(cancelData[j].ORDERITEMS_ID == data[i].ORDERITEMS_ID){
    			 						data[i].CANCELLED_QUANTITY = cancelData[j].CANCELLED_QUANTITY;
    			 					}
    			 				}
