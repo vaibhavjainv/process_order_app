@@ -181,10 +181,17 @@ $(function () {
 		var quantityselectVal = quantityselect.val();
 
 
-
+/*
 		originalq = $( "#originalq_"+id );
 		shippedq = $( "#shippedq_"+id );
 		cancelledq = $( "#cancelledq_"+id );
+*/
+
+		originalq = $tr.children( "#originalq_"+id );		
+		shippedq = $tr.children("#shippedq_"+id );
+		cancelledq = $tr.children("#cancelledq_"+id );
+
+
 		var newval = originalq.text() - shippedq.text() - cancelledq.text() - $select.val();
 		var quantityselectlen =  quantityselect.children().length;
 		var loopCount = $select.val();
@@ -223,10 +230,18 @@ $(function () {
 
 		var quantityselectVal = quantityselect.val();
 
-
+		/*
 		originalq = $( "#originalq_"+id );
 		shippedq = $( "#shippedq_"+id );
 		cancelledq = $( "#cancelledq_"+id );
+		*/
+
+		originalq = $tr.children( "#originalq_"+id );		
+		shippedq = $tr.children("#shippedq_"+id );
+		cancelledq = $tr.children("#cancelledq_"+id );
+
+
+
 		var newval = originalq.text() - shippedq.text() - cancelledq.text() - $select.val();
 		var quantityselectlen =  quantityselect.children().length;
 		var loopCount = $select.val();

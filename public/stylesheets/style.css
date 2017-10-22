@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Tahoma", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -15,7 +15,10 @@ table{
 
 td,th{
 	border: 1px solid;
-	padding: 0.5rem
+	word-wrap: break-word;
+	text-align: left;
+	padding: 0;
+	margin: 0;
 }
 
 input[name=button]{
@@ -35,4 +38,9 @@ input[name=returnItems]{
 	float: right;
 	border-radius: 10px;
 	background-color: lightgrey;
+}
+
+select{
+	border: 0;
+    width: 100%;
 }

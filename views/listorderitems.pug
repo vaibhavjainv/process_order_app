@@ -14,18 +14,18 @@ block content
 			table
 				thead
 					tr
-						th STOREENT_ID
-						th ORDERS_ID
-						th ORDERS_STATUS
-						th ORDERITEMS_ID
-						th SKU_PARTNUMBER
-						th PARENT_PARTNUMBER
-						th SHIPPED_QUANTITY
-						th CANCELLED_QUANTITY
-						th ORIGINAL_QUANTITY		
-						th QUANTITY_TO_SHIP
-						th QUANTITY_TO_CANCEL
-						th DROP_SHIP
+						th STR_ID
+						th ORD_ID
+						th ORD_ST
+						th ORDI_ID
+						th SKU_PN
+						th P_PN
+						th SHPD_Q
+						th CLD_Q
+						th ORIG_Q		
+						th Q_TO_SHP
+						th Q_TO_CL
+						th D_SHP
 				tbody
 					each result in orderitems
 						tr&attributes({'id':result.ORDERS_ID})
@@ -43,10 +43,10 @@ block content
 							td#parentpartnum #{result.PARENT_PARTNUMBER}
 
 							- var id3= "shippedq_" + result.ORDERS_ID;
-							th&attributes({'id':id3}) #{result.SHIPPED_QUANTITY}
+							td&attributes({'id':id3}) #{result.SHIPPED_QUANTITY}
 
 							- var id4= "cancelledq_" + result.ORDERS_ID;
-							th&attributes({'id':id4}) #{result.CANCELLED_QUANTITY}
+							td&attributes({'id':id4}) #{result.CANCELLED_QUANTITY}
 						
 							- var id2= "originalq_" + result.ORDERS_ID;
 							td&attributes({'id':id2}) #{result.QUANTITY}
