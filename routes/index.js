@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Process Orders App', links:[{link:'/listorderitems', title:'Ship / Cancel order items'},{link:'/listshippeditems', title:'Return order items'}] });
 });
 
 
