@@ -1,1 +1,2 @@
 routes/config.js
+public/shipmentfiles/*.csv
