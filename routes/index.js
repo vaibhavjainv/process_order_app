@@ -21,9 +21,12 @@ router.get('/listorderitems', function(req, res, next) {
 				conn.query("SELECT  XOIR.ORDERITEMS_ID AS ORDERITEMS_ID, SUM(XOIR.QUANTITY) AS CANCELLED_QUANTITY  FROM XORDERITEMS XOIR JOIN ORDERS ON XOIR.ORDERS_ID = ORDERS.ORDERS_ID WHERE ORDERS.FIELD3=1 AND ORDERS.STATUS IN ('XX', 'SP') AND TIMEPLACED > (CURRENT DATE - 7 DAYS) and XOIR.STATUS = 'X' GROUP BY XOIR.ORDERITEMS_ID WITH UR;", function (err, cancelData) {
 					if (err) console.log(err);
 					else{
+						var orderid = "";
+						var flag = "light";
+
 						for (var i = data.length - 1; i >= 0; i--) {
-   			 				//console.log(cancelData);
-							data[i].CANCELLED_QUANTITY = 0;
+   			 				
+   			 				data[i].CANCELLED_QUANTITY = 0;
    			 				for (var j = cancelData.length - 1; j >= 0; j--) {
    			 					if(cancelData[j].ORDERITEMS_ID == data[i].ORDERITEMS_ID){
    			 						data[i].CANCELLED_QUANTITY = cancelData[j].CANCELLED_QUANTITY;
@@ -32,7 +35,18 @@ router.get('/listorderitems', function(req, res, next) {
 
    			 				if(data[i].SHIPPED_QUANTITY == null){
    			 					data[i].SHIPPED_QUANTITY = 0;
-   			 				}	
+   			 				}
+
+   			 				if(orderid != data[i].ORDERS_ID){
+   			 					if(flag=="light"){
+   			 						flag="dark";
+   			 					}else{
+   			 						flag = "light";
+   			 					}
+   			 				}
+
+   			 				orderid = data[i].ORDERS_ID;
+   			 				data[i].ROW_COLOR=flag;
 
    			 			}
    			 			res.render('listorderitems', { orderitems: data });
@@ -41,7 +55,7 @@ router.get('/listorderitems', function(req, res, next) {
    			 } 
 
 			conn.close(function () {
-   				
+   			//	console.log('closed the connection');
     		});
 		});
 
@@ -67,6 +81,10 @@ router.get('/listshippeditems', function(req, res, next) {
    				conn.query("SELECT  XOIR.ORDERITEMS_ID AS ORDERITEMS_ID, SUM(XOIR.QUANTITY) AS RETURNED_QUANTITY  FROM XORDERITEMS XOIR JOIN ORDERS ON XOIR.ORDERS_ID = ORDERS.ORDERS_ID WHERE ORDERS.FIELD3=1 AND ORDERS.STATUS IN ('S', 'SP') AND TIMEPLACED > (CURRENT DATE - 7 DAYS) and XOIR.STATUS = 'U' GROUP BY XOIR.ORDERITEMS_ID WITH UR;", function (err, returnData) {
     				if (err) console.log(err);
    			 		else{
+
+   			 			var orderid = "";
+						var flag = "light";
+
    			 			for (var i = shipData.length - 1; i >= 0; i--) {
    			 				//console.log(shipData[i].ORDERITEMS_ID);
 							shipData[i].RETURNED_QUANTITY = 0;
@@ -75,7 +93,20 @@ router.get('/listshippeditems', function(req, res, next) {
    			 						shipData[i].RETURNED_QUANTITY = returnData[j].RETURNED_QUANTITY;
    			 					}
    			 				}
+
+							if(orderid != shipData[i].ORDERS_ID){
+			 					if(flag=="light"){
+			 						flag="dark";
+			 					}else{
+			 						flag = "light";
+			 					}
+				 			}	
+
+			 				orderid = shipData[i].ORDERS_ID;
+			 				shipData[i].ROW_COLOR=flag;
    			 			}
+
+   			 			
 
    			 			//console.log(shipData);
 
@@ -197,6 +228,10 @@ router.post('/shiporders', function(req,res,next){
 		port: 22,
 		username: config.tguser,
 		password: config.tgpassword
+		},function(err, result){
+			if (err) {
+				console.log('eeror with sftp');
+			}
 		});
 	
 

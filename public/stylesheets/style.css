@@ -43,4 +43,13 @@ input[name=returnItems]{
 select{
 	border: 0;
     width: 100%;
+    background-color: inherit;
+}
+
+.light{
+	background-color: azure;
+}
+
+.dark{
+	background-color: antiquewhite;
 }

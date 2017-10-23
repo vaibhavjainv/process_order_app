@@ -28,7 +28,7 @@ block content
 						th D_SHP
 				tbody
 					each result in orderitems
-						tr&attributes({'id':result.ORDERS_ID})
+						tr&attributes({'id':result.ORDERS_ID, 'class':result.ROW_COLOR})
 
 							td#storeid #{result.STOREENT_ID}
 						

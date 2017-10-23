@@ -14,19 +14,19 @@ block content
 			table
 				thead
 					tr
-						th STOREENT_ID
-						th ORDERS_ID
-						th ORDERS_STATUS
-						th ORDERITEMS_ID
-						th SKU_PARTNUMBER
-						th PARENT_PARTNUMBER
-						th ORIGINAL_QUANTITY
-						th SHIPPED_QUANTITY
-						th RETURNED_QUANTITY
-						th QUANTITY_TO_RETURN
+						th STR_ID
+						th ORD_ID
+						th ORD_ST
+						th ORDI_ID
+						th SKU_PN
+						th P_PN
+						th ORIG_Q
+						th SHD_Q
+						th RTD_Q
+						th Q_TO_R
 				tbody
 					each result in shipData
-						tr&attributes({'id':result.ORDERS_ID})
+						tr&attributes({'id':result.ORDERS_ID, 'class':result.ROW_COLOR})
 
 							td#storeid #{result.STOREENT_ID}
 						
